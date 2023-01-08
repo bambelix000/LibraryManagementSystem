@@ -2,13 +2,15 @@ package pl.bambelix000.LibraryManagementSystem.book;
 
 
 import lombok.*;
+import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table( name = "book")
 @NoArgsConstructor
 @ToString
+
 public class Book {
 
     @Id
