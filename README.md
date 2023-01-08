@@ -9,6 +9,14 @@ I've learned:
   - Interfaces usages,
   - many spring functions.
   
+  
+  
+FUTURES:
+  - New Table User
+  - connect User with Book 
+  - upgrade both tables
+  
+  
 If you have some advices for me, I'm open for them.
 <3
 
