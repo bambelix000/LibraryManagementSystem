@@ -2,17 +2,14 @@ package pl.bambelix000.LibraryManagementSystem.book;
 
 
 import lombok.*;
-import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 
 @Entity
-@Table( name = "book")
+@Table
 @NoArgsConstructor
 @ToString
-
 public class Book {
-
     @Id
     @SequenceGenerator(
             name = "book_sequence",
@@ -25,18 +22,24 @@ public class Book {
     )
     @Getter
     @Setter
-    @NonNull
     private Long id;
+
+    @Getter
+    @Setter
     private String author;
+
+    @Getter
+    @Setter
     private String title;
+
+    @Getter
+    @Setter
     private Integer amount;
+
     @Transient
     private Integer amountAvailable;
     @Transient
-    private Integer booked = 0;
-
-
-
+    private Integer booked;
 
     public Book(String author,
                 String title,
@@ -46,38 +49,19 @@ public class Book {
         this.amount = amount;
     }
 
-
-
-    public String getAuthor() {
-        return author;
+    public Integer getBooked() {
+        return booked = 0;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setBooked(Integer booked) {
+        this.booked = booked;
     }
 
     public Integer getAmountAvailable() {
-        return amount - booked;
+        return amount - getBooked();
     }
 
     public void setAmountAvailable(Integer amountAvailable) {
         this.amountAvailable = amountAvailable;
     }
-
 }

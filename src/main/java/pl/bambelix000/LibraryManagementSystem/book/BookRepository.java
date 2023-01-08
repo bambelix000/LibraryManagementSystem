@@ -8,22 +8,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
-
 import java.util.Optional;
-
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     Optional<Book> findByTitle(String title);
 
-
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query(value = "UPDATE public.book SET amount = amount + :amount WHERE title = :title", nativeQuery = true)
     void updateAmount(@Param("amount") Integer amount, @Param("title") String title);
-
-
-
 }

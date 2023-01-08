@@ -14,21 +14,7 @@ public class BookConfig {
 
     @Bean
     CommandLineRunner commandLineRunner(BookRepository repository){
-        return args -> {
-            Book szczelcy = new Book(
+        return args -> repository.saveAll(List.of());
 
-                    "Barański Bartłomiej",
-                    "Szczelcy",
-                    5
-            );
-            Book wendrofcy = new Book(
-                    "Barański Bartłomiej",
-                    "Wendrofcy",
-                    3
-            );
-            repository.saveAll(List.of(szczelcy, wendrofcy));
-        };
     }
-
-
 }

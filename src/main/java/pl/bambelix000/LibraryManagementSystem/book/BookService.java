@@ -1,15 +1,10 @@
 package pl.bambelix000.LibraryManagementSystem.book;
 
-
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-
-import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,11 +21,8 @@ public class BookService {
     }
 
     public List<Book> getBooks(){
-       return bookRepository.findAll();
+       return bookRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
    }
-
-
-
 
    public void addNewBook(Book book){
        Optional<Book>bookOptional = bookRepository.findByTitle(book.getTitle());
