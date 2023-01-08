@@ -37,21 +37,6 @@ public class BookService {
 
        if(bookOptional.isPresent()){
 
-//            String dbUrl = "jdbc:postgresql://localhost:5432/LibraryManagementSystem";
-//            String dbUser = "postgres";
-//            String dbPassword = "Bartekpuma1";
-//
-//           try(Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-//               PreparedStatement statement = connection.prepareStatement("UPDATE public.book SET amount = amount + ? WHERE title = ?")) {
-//
-//               statement.setInt(1, book.getAmount());
-//               statement.setString(2, book.getTitle());
-//               statement.executeUpdate();
-//
-//           } catch (SQLException e) {
-//               throw new RuntimeException(e);
-//           }
-
           bookRepository.updateAmount(book.getAmount(), book.getTitle());
 
        }else{
