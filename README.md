@@ -12,7 +12,6 @@ I've learned:
   
   
 FUTURES:
-  - New Table User
   - connect User with Book 
   - upgrade both tables
   
