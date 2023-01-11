@@ -1,24 +1,26 @@
-package pl.bambelix000.LibraryManagementSystem.book;
-
+package pl.bambelix000.LibraryManagementSystem.user;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 import java.util.List;
 
 @Configuration
-public class BookConfig {
+public class UserConfig {
+
+
 
     @Bean
-    CommandLineRunner commandLineRunner(BookRepository repository){
+    CommandLineRunner commandRunner(UserRepository repository){
         return args -> {
-            Book test = new Book(
-                    "Mirek",
-                    "Test",
-                    5
+            User test = new User(
+                    "Miro",
+                    "Maro",
+                    "test@gmail.com",
+                    "21372115918"
             );
+
             repository.saveAll(List.of(test));
         };
 

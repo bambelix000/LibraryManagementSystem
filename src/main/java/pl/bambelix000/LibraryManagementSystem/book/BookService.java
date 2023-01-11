@@ -1,7 +1,6 @@
 package pl.bambelix000.LibraryManagementSystem.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,6 @@ import java.util.Optional;
 public class BookService {
 
 
-    @Autowired
     private final BookRepository bookRepository;
 
     @Autowired
