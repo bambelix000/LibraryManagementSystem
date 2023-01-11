@@ -8,9 +8,6 @@ import java.util.List;
 
 @Configuration
 public class UserConfig {
-
-
-
     @Bean
     CommandLineRunner commandRunner(UserRepository repository){
         return args -> {

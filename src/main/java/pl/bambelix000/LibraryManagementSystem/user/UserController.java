@@ -9,6 +9,7 @@ import java.util.List;
 @RequestMapping("api/user")
 public class UserController {
 
+    @Autowired
     private final UserService userService;
 
     @Autowired

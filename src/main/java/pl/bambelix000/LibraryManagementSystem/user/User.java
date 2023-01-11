@@ -2,6 +2,7 @@ package pl.bambelix000.LibraryManagementSystem.user;
 
 
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Component
 public class User {
     @Id
     @SequenceGenerator(
@@ -40,7 +42,7 @@ public class User {
     }
 
 
-    public String getName() {
+    public  String getName() {
         return name;
     }
 
@@ -48,7 +50,7 @@ public class User {
         this.name = name;
     }
 
-    public String getSurname() {
+    public  String getSurname() {
         return surname;
     }
 
