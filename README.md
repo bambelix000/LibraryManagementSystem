@@ -11,8 +11,7 @@ I've learned:
   
   
   
-FUTURES:
-  - connect User with Book 
+FUTURES: 
   - upgrade both tables
   
   
