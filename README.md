@@ -14,6 +14,7 @@ I've learned:
 FUTURES: 
   - returning books(huge update required)
   - upgrade both tables
+  - frontend which will show whole logic of this program
   
   
 If you have some advices for me, I'm open for them.
