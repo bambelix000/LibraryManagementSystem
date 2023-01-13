@@ -33,18 +33,39 @@ public class BookedService {
     public void bookABook(Booked booked){
         Optional<User> userOptional = userRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
         Optional<Book> bookOptional = bookRepository.findByTitle(booked.getTitle());
-        Optional<Book> authorOfBookOptional = bookRepository.findByAuthor(booked.getAuthor());
+        Optional<Book> authorOptional = bookRepository.findByAuthor(booked.getAuthor());
         Optional<Booked> bookedUserOptional = bookedRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
 
-        if(userOptional.isEmpty()) throw new IllegalStateException("User with this social security number doesn't exists");
-        else if(authorOfBookOptional.isEmpty()) throw new IllegalStateException("This author doesn't written this book");
+
+        if(userOptional.isEmpty()) throw new IllegalStateException("This user doesn't exists");
+        else if(authorOptional.isEmpty()) throw new IllegalStateException("This author doesn't written this book");
         else if(bookOptional.isEmpty()) throw new IllegalStateException("This book doesn't exists");
         else if(bookedUserOptional.isPresent()){
             bookedRepository.updateBooks(booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
+            bookedRepository.borrowBook(booked.getTitle());
         }
             else{
             booked.setSurname(bookedRepository.getSurname(booked.getSocialSecurityNumber()));
             bookedRepository.save(booked);
+            bookedRepository.borrowBook(booked.getTitle());
         }
     }
+
+    public void returnBook(Booked booked){
+        Optional<Booked> ssnOptional = bookedRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
+        Optional<Booked> titleOptional = bookedRepository.findByTitle(booked.getTitle());
+        Optional<Booked> authorOptional = bookedRepository.findByAuthor(booked.getAuthor());
+
+        if(ssnOptional.isEmpty()) throw new IllegalStateException("This user doesn't exists");
+        else if(titleOptional.isEmpty() || authorOptional.isEmpty()) throw new IllegalStateException("This user haven't borrowed this book");
+        else{
+
+            bookedRepository.deleteBook(/*booked.getAuthor(), */booked.getTitle(), booked.getSocialSecurityNumber());
+            bookedRepository.returnBook(booked.getTitle());
+        }
+
+    }
+
+
+
 }

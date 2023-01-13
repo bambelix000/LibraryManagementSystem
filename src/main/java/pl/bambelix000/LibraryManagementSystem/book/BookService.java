@@ -13,6 +13,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
+
     @Autowired
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -24,6 +25,8 @@ public class BookService {
 
    public void addNewBook(Book book){
        Optional<Book>bookOptional = bookRepository.findByTitle(book.getTitle());
+       book.setBooked(0);
+
 
        if(bookOptional.isPresent()){
 
@@ -33,4 +36,5 @@ public class BookService {
            bookRepository.save(book);
        }
    }
+
 }

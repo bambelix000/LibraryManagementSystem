@@ -17,7 +17,8 @@ public class BookConfig {
             Book test = new Book(
                     "Mirek",
                     "Test",
-                    5
+                    5,
+                    0
             );
             repository.saveAll(List.of(test));
         };

@@ -38,19 +38,22 @@ public class Book {
 
     @Transient
     private Integer amountAvailable;
-    @Transient
+
+
     private Integer booked;
 
     public Book(String author,
                 String title,
-                Integer amount) {
+                Integer amount,
+                Integer booked) {
         this.author = author;
         this.title = title;
         this.amount = amount;
+        this.booked = booked;
     }
 
     public Integer getBooked() {
-        return booked = 0;
+        return booked;
     }
 
     public void setBooked(Integer booked) {
