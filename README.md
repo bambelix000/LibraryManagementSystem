@@ -11,8 +11,9 @@ I've learned:
   
   
   
-FUTURES:
-  - connect User with Book 
+FUTURES: 
+  - decresing amount of books when somone borrows a book
+  - returning books
   - upgrade both tables
   
   
