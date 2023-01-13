@@ -24,34 +24,33 @@ public class Booked {
     @Setter
     private Long id;
 
-    private String fullName;
+    private String surname;
 
     @Setter
+    @Getter
     private String socialSecurityNumber;
 
     @Setter
-    private String titleAuthor;
+    @Getter
+    private String title;
+
+    @Setter
+    @Getter
+    private String author;
 
     public Booked(String socialSecurityNumber,
-                  String titleAuthor) {
+                  String title,
+                  String author) {
         this.socialSecurityNumber = socialSecurityNumber;
-        this.titleAuthor = titleAuthor;
+        this.title = title;
+        this.author = author;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getSocialSecurityNumber() {
-        return socialSecurityNumber;
-    }
-
-
-    public String getTitleAuthor() {
-        return titleAuthor;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }

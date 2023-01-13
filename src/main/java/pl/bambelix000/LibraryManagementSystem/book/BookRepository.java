@@ -14,8 +14,9 @@ import java.util.Optional;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     Optional<Book> findByTitle(String title);
+    Optional<Book> findByAuthor(String author);
 
-    @Modifying(clearAutomatically = true)
+    @Modifying
     @Transactional
     @Query(value = "UPDATE public.book SET amount = amount + :amount WHERE title = :title", nativeQuery = true)
     void updateAmount(@Param("amount") Integer amount, @Param("title") String title);

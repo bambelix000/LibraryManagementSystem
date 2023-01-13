@@ -3,6 +3,8 @@ package pl.bambelix000.LibraryManagementSystem.booked;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import pl.bambelix000.LibraryManagementSystem.book.Book;
+import pl.bambelix000.LibraryManagementSystem.book.BookRepository;
 import pl.bambelix000.LibraryManagementSystem.user.User;
 import pl.bambelix000.LibraryManagementSystem.user.UserRepository;
 
@@ -14,14 +16,14 @@ import java.util.Optional;
 public class BookedService {
     @Autowired
     private final BookedRepository bookedRepository;
+    private final BookRepository bookRepository;
     private final UserRepository userRepository;
-    private final User user;
 
     @Autowired
-    public BookedService(BookedRepository bookedRepository, UserRepository userRepository, User user) {
+    public BookedService(BookedRepository bookedRepository, BookRepository bookRepository, UserRepository userRepository) {
         this.bookedRepository = bookedRepository;
+        this.bookRepository = bookRepository;
         this.userRepository = userRepository;
-        this.user = user;
     }
 
     public List<Booked> getBooked(){
@@ -30,12 +32,19 @@ public class BookedService {
 
     public void bookABook(Booked booked){
         Optional<User> userOptional = userRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
+        Optional<Book> bookOptional = bookRepository.findByTitle(booked.getTitle());
+        Optional<Book> authorOfBookOptional = bookRepository.findByAuthor(booked.getAuthor());
+        Optional<Booked> bookedUserOptional = bookedRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
 
-        if(userOptional.isPresent()){
+        if(userOptional.isEmpty()) throw new IllegalStateException("User with this social security number doesn't exists");
+        else if(authorOfBookOptional.isEmpty()) throw new IllegalStateException("This author doesn't written this book");
+        else if(bookOptional.isEmpty()) throw new IllegalStateException("This book doesn't exists");
+        else if(bookedUserOptional.isPresent()){
+            bookedRepository.updateBooks(booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
+        }
+            else{
+            booked.setSurname(bookedRepository.getSurname(booked.getSocialSecurityNumber()));
             bookedRepository.save(booked);
-
-        }else{
-            throw new IllegalStateException("User with this social security number doesn't exists");
         }
     }
 }
