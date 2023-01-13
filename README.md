@@ -12,6 +12,8 @@ I've learned:
   
   
 FUTURES: 
+  - decresing amount of books when somone borrows a book
+  - returning books
   - upgrade both tables
   
   
