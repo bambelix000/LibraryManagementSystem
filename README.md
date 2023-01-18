@@ -12,9 +12,9 @@ I've learned:
   
   
 FUTURES: 
-  - decresing amount of books when somone borrows a book
-  - returning books
+  - returning books(huge update required)
   - upgrade both tables
+  - frontend which will show whole logic of this program
   
   
 If you have some advices for me, I'm open for them.
