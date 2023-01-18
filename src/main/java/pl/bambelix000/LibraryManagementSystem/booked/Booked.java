@@ -34,8 +34,6 @@ public class Booked {
     @Getter
     private String title;
 
-    @Setter
-    @Getter
     private String author;
 
     public Booked(String socialSecurityNumber,
@@ -43,6 +41,14 @@ public class Booked {
                   String author) {
         this.socialSecurityNumber = socialSecurityNumber;
         this.title = title;
+        this.author = author;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
         this.author = author;
     }
 

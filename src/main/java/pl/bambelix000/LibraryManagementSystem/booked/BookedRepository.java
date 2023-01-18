@@ -14,8 +14,6 @@ import java.util.Optional;
 public interface BookedRepository extends JpaRepository<Booked, Long> {
 
     Optional<Booked> findBySocialSecurityNumber(String ssn);
-    Optional<Booked> findByAuthor(String author);
-    Optional<Booked> findByTitle(String title);
 
 
     @Query(value = "SELECT surname FROM public.user WHERE social_security_number = :ssn", nativeQuery = true)
@@ -23,21 +21,12 @@ public interface BookedRepository extends JpaRepository<Booked, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE public.booked SET author = author ||', '|| :author, title = title ||', '|| :title WHERE social_security_number = :ssn", nativeQuery = true)
-    void updateBooks(@Param("author") String author, @Param("title") String title, @Param("ssn") String ssn);
+    @Query(value = "UPDATE public.book SET booked = booked + 1 WHERE title = :title AND author = :author", nativeQuery = true)
+    void borrowBook(@Param("title") String title, @Param("author") String author);
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE :author, :title FROM public.booked WHERE social_security_number = :ssn", nativeQuery = true)
-    void deleteBook(@Param("author") String author, @Param("title") String title, @Param("ssn") String ssn);
+    @Query(value = "UPDATE public.booked SET author = :author, title = :title WHERE social_security_number = :ssn", nativeQuery = true)
+    void updateAuthorAndTitle(@Param("author") String author, @Param("title") String title, @Param("ssn") String socialSecurityNumber);
 
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE public.book SET booked = booked + 1 WHERE title = :title", nativeQuery = true)
-    void borrowBook(@Param("title") String title);
-
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE public.book SET booked = booked - 1 WHERE title = :title", nativeQuery = true)
-    void returnBook(@Param("title") String title);
 }

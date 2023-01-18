@@ -26,8 +26,4 @@ public class BookedController {
         bookedService.bookABook(booked);
     }
 
-    @DeleteMapping
-    public void deleteBook(@RequestBody Booked booked){
-        bookedService.returnBook(booked);
-    }
 }
