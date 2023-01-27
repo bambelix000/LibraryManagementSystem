@@ -23,6 +23,7 @@ public class BookedBooks {
     )
     private Long id;
     private String socialSecurityNumber;
+
     private String title;
     private String author;
 

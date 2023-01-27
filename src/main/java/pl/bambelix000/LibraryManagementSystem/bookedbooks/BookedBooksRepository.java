@@ -7,14 +7,29 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public interface BookedBooksRepository extends JpaRepository<BookedBooks, Long> {
 
+
+    Optional<BookedBooks> findBySocialSecurityNumber(String ssn);
+    Optional<BookedBooks> findByTitle(String title);
+    Optional<BookedBooks> findByAuthor(String author);
 
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO public.booked_books (id, author, title, social_security_number) VALUES (:id, :author, :title, :ssn);", nativeQuery = true)
     void setBookedBooks(@Param("id") Integer id, @Param("author") String author, @Param("title") String title, @Param("ssn") String socialSecurityNumber);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM public.booked_books WHERE id = :id",nativeQuery = true)
+    void deleteBook(@Param("id") int id);
+
+    @Query(value = "SELECT min(id) FROM public.booked_books WHERE title = :title AND author = :author AND social_security_number = :ssn", nativeQuery = true)
+    Long selectMinId(@Param("title")String title, @Param("author") String author, @Param("ssn") String socialSecurityNumber);
 
     @Query(value = "SELECT author FROM public.booked_books WHERE social_security_number = :ssn", nativeQuery = true)
     String getAuthor(@Param("ssn") String socialSecurityNumber);
