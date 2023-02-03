@@ -12,8 +12,9 @@ I've learned:
   
   
 FUTURES: 
-  - returning books(huge update required)
-  - upgrade both tables
+  - fix bugs
+  - upgrade programm
+  - symplify code
   - frontend which will show whole logic of this program
   
   
