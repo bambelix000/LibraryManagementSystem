@@ -16,7 +16,6 @@ import java.util.Optional;
 
 @Service
 public class BookedService {
-    public Integer i = 1;
 
     @Autowired
     private final BookedRepository bookedRepository;
@@ -41,24 +40,32 @@ public class BookedService {
         Optional<Book> isTitlePresent = bookRepository.findByTitle(booked.getTitle());
         Optional<Booked> hasUserAlreadyBorrowBook = bookedRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
 
-        // PROBLEM Z QUERY
-       // Optional<Book> isAuthorPresent = bookRepository.findByAuthor(booked.getAuthor());
+        boolean isEnable;
+        if(bookedRepository.amount(booked.getTitle(), booked.getAuthor()) - bookedRepository.booked(booked.getTitle(), booked.getAuthor()) > 0){
+            isEnable = true;
+        }else{
+            isEnable = false;
+        }
 
+       // PROBLEM Z QUERY
+       // Optional<Book> isAuthorPresent = bookRepository.findByAuthor(booked.getAuthor());
 
         if(isUserPresent.isEmpty()) throw new IllegalStateException("This user doesn't exists");
         else if(isTitlePresent.isEmpty() ) throw new IllegalStateException("This book doesn't exists");
        // else if(isAuthorPresent.isEmpty()) throw new IllegalStateException("This author doesn't written this book");
-        else if(hasUserAlreadyBorrowBook.isPresent() && bookedRepository.amount(booked.getTitle(), booked.getAuthor()) - bookedRepository.booked(booked.getTitle(), booked.getAuthor()) > 0){
+        else if(hasUserAlreadyBorrowBook.isPresent() && isEnable){
+
+            Integer i = bookedBooksRepository.getI() + 1;
 
             bookedBooksRepository.setBookedBooks(i, booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
 
             bookedRepository.borrowBook(booked.getTitle(), booked.getAuthor());
 
-            i += 1;
-        }else if (hasUserAlreadyBorrowBook.isEmpty() &&    bookedRepository.amount(booked.getTitle(), booked.getAuthor()) - bookedRepository.booked(booked.getTitle(), booked.getAuthor())  >  0){
-
+        }else if (hasUserAlreadyBorrowBook.isEmpty() && isEnable){
+            Integer i = bookedBooksRepository.getI() + 1;
 
             bookedBooksRepository.setBookedBooks(i, booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
+
 
             booked.setSurname(bookedRepository.getSurname(booked.getSocialSecurityNumber()));
             booked.setSocialSecurityNumber(booked.getSocialSecurityNumber());
@@ -69,7 +76,6 @@ public class BookedService {
 
             bookedRepository.save(booked);
 
-            i += 1;
         }else throw new IllegalStateException("This book isn't enable already");
     }
 
@@ -82,13 +88,10 @@ public class BookedService {
             bookedRepository.returnBook(booked.getTitle(),booked.getAuthor());
 
 
-            // query nie zwraca JEDNEJ minimalnej wartości niewiadomo czemu
+            // query nie zwraca JEDNEJ wartości nwm czemu
             Long id = bookedBooksRepository.selectMinId(booked.getTitle(),booked.getAuthor(), booked.getSocialSecurityNumber());
-            System.out.println(id);
 
-           // bookedBooksRepository.deleteBook(id);
+            bookedBooksRepository.deleteBook(id);
         }
     }
-
-
 }

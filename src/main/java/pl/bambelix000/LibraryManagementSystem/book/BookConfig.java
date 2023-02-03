@@ -19,9 +19,14 @@ public class BookConfig {
                     "Test",
                     5,
                     0
-
             );
-            repository.saveAll(List.of(test));
+            Book test1 = new Book(
+                    "Mietek",
+                    "Test2",
+                    3,
+                    0
+            );
+            repository.saveAll(List.of(test, test1));
         };
 
     }

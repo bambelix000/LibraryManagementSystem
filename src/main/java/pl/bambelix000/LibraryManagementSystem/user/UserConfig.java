@@ -17,8 +17,21 @@ public class UserConfig {
                     "test@gmail.com",
                     "21372115918"
             );
+            User test2 = new User(
+                    "Bob",
+                    "Bobikowski",
+                    "Bobikowski@gmail.com",
+                    "12345678901"
+            );
+            User test3 = new User(
+                    "Mietek",
+                    "Mietczyński",
+                    "Mietkowski@gmail.com",
+                    "12312312312"
+            );
 
-            repository.saveAll(List.of(test));
+
+            repository.saveAll(List.of(test, test2, test3));
         };
 
     }

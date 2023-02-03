@@ -1,4 +1,4 @@
-package pl.bambelix000.LibraryManagementSystem.booked;
+package pl.bambelix000.LibraryManagementSystem.bookedbooks;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -7,17 +7,16 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-public class BookedConfig {
+public class BookedBooksConfig {
 
     @Bean
-    CommandLineRunner lineRunner(BookedRepository repo){
+    CommandLineRunner runner(BookedBooksRepository repo){
         return args->{
-            Booked test = new Booked(
+            BookedBooks test = new BookedBooks(
                     "21372115918",
                     "Test",
                     "Mirek"
             );
-
             repo.saveAll(List.of(test));
         };
     }
