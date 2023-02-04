@@ -35,5 +35,10 @@ public interface BookedRepository extends JpaRepository<Booked, Long> {
     @Query(value = "SELECT booked FROM public.book WHERE title = :title AND author = :author", nativeQuery = true)
     int booked(@Param("title") String title, @Param("author") String author);
 
+    @Modifying
+    @Transactional
+    @Query(value="UPDATE public.booked SET author = author + || + :author WHERE social_security_number = :ssn", nativeQuery = true)
+    void updateAuthor(@Param("author")String author, @Param("ssn")String socialSecurityNumber);
+
 
 }

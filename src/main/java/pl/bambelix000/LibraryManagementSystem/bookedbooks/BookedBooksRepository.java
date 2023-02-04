@@ -20,7 +20,7 @@ public interface BookedBooksRepository extends JpaRepository<BookedBooks, Long> 
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO public.booked_books (id, author, title, social_security_number) VALUES (:id, :author, :title, :ssn);", nativeQuery = true)
-    void setBookedBooks(@Param("id") Integer id, @Param("author") String author, @Param("title") String title, @Param("ssn") String socialSecurityNumber);
+    void setBookedBooks(@Param("id") Long id, @Param("author") String author, @Param("title") String title, @Param("ssn") String socialSecurityNumber);
 
     @Transactional
     @Modifying
@@ -32,13 +32,17 @@ public interface BookedBooksRepository extends JpaRepository<BookedBooks, Long> 
     Long selectMinId(@Param("title")String title, @Param("author") String author, @Param("ssn") String socialSecurityNumber);
 
     @Query(value = "SELECT MAX(id) FROM public.booked_books", nativeQuery = true)
-    Integer getI();
+    Long getI();
+
+    @Query(value = "SELECT social_security_number FROM public.booked_books WHERE id = :id", nativeQuery = true)
+    String getSsn(@Param("id")Long id);
 
     @Query(value = "SELECT author FROM public.booked_books WHERE social_security_number = :ssn", nativeQuery = true)
     String getAuthor(@Param("ssn") String socialSecurityNumber);
 
     @Query(value = "SELECT title FROM public.booked_books WHERE social_security_number = :ssn", nativeQuery = true)
     String getTitle(@Param("ssn") String socialSecurityNumber);
+
 
 
 

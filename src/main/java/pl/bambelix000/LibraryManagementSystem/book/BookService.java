@@ -24,13 +24,14 @@ public class BookService {
    }
 
    public void addNewBook(Book book){
-       Optional<Book>bookOptional = bookRepository.findByTitle(book.getTitle());
+       Optional<Book>titleOptional = bookRepository.findByTitle(book.getTitle());
+      // Optional<Book>authorOptional = bookRepository.findByAuthor(book.getAuthor());
        book.setBooked(0);
 
+       if(titleOptional.isPresent()){
 
-       if(bookOptional.isPresent()){
+           bookRepository.updateAmount(book.getAmount(), book.getTitle());
 
-          bookRepository.updateAmount(book.getAmount(), book.getTitle());
 
        }else{
            bookRepository.save(book);

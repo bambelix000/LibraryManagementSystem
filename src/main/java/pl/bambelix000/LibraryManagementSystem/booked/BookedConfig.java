@@ -14,8 +14,8 @@ public class BookedConfig {
         return args->{
             Booked test = new Booked(
                     "21372115918",
-                    "Test",
-                    "Mirek"
+                    "booked_books table",
+                    "booked_books table"
             );
 
             repo.saveAll(List.of(test));

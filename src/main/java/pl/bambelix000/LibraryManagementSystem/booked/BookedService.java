@@ -55,22 +55,22 @@ public class BookedService {
        // else if(isAuthorPresent.isEmpty()) throw new IllegalStateException("This author doesn't written this book");
         else if(hasUserAlreadyBorrowBook.isPresent() && isEnable){
 
-            Integer i = bookedBooksRepository.getI() + 1;
+            Long i = bookedBooksRepository.getI() + 1;
 
             bookedBooksRepository.setBookedBooks(i, booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
 
             bookedRepository.borrowBook(booked.getTitle(), booked.getAuthor());
 
         }else if (hasUserAlreadyBorrowBook.isEmpty() && isEnable){
-            Integer i = bookedBooksRepository.getI() + 1;
+            Long i = bookedBooksRepository.getI() + 1;
 
             bookedBooksRepository.setBookedBooks(i, booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
 
 
             booked.setSurname(bookedRepository.getSurname(booked.getSocialSecurityNumber()));
             booked.setSocialSecurityNumber(booked.getSocialSecurityNumber());
-            booked.setAuthor(bookedBooksRepository.getAuthor(booked.getSocialSecurityNumber()));
-            booked.setTitle(bookedBooksRepository.getTitle(booked.getSocialSecurityNumber()));
+            booked.setAuthor("booked_books table");
+            booked.setTitle("booked_books table");
 
             bookedRepository.borrowBook(booked.getTitle(), booked.getAuthor());
 
@@ -94,4 +94,9 @@ public class BookedService {
             bookedBooksRepository.deleteBook(id);
         }
     }
+
+
+
+
+
 }

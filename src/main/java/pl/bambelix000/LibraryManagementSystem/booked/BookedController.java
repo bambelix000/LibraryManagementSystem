@@ -22,12 +22,12 @@ public class BookedController {
     }
 
     @PostMapping
-    public void bookABook(@RequestBody Booked booked){
+    public void bookABook(@ModelAttribute Booked booked){
         bookedService.bookABook(booked);
     }
 
     @DeleteMapping
-    public void returnBook(@RequestBody Booked booked){
+    public void returnBook(@ModelAttribute Booked booked){
         bookedService.returnBook(booked);
     }
 

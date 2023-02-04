@@ -23,7 +23,7 @@ public class BookController {
     }
 
     @PostMapping
-    public void addBook(@RequestBody Book book){
+    public void addBook(@ModelAttribute Book book){
         bookService.addNewBook(book);
     }
 }
