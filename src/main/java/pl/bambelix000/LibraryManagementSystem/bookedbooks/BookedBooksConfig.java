@@ -14,6 +14,7 @@ public class BookedBooksConfig {
         return args->{
             BookedBooks test = new BookedBooks(
                     "21372115918",
+                    "Maro",
                     "Test",
                     "Mirek"
             );

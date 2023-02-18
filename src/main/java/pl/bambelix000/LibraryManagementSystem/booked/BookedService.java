@@ -39,28 +39,26 @@ public class BookedService {
         Optional<User> isUserPresent = userRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
         Optional<Book> isTitlePresent = bookRepository.findByTitle(booked.getTitle());
         Optional<Booked> hasUserAlreadyBorrowBook = bookedRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
+        Optional<Book> isAuthorPresent = bookRepository.findByAuthor(booked.getAuthor());
 
         boolean isEnable = bookedRepository.amount(booked.getTitle(), booked.getAuthor()) - bookedRepository.booked(booked.getTitle(), booked.getAuthor()) > 0;
 
-       // PROBLEM Z QUERY
-
-       // Optional<Book> isAuthorPresent = bookRepository.findByAuthor(booked.getAuthor());
 
          if(isUserPresent.isEmpty()) throw new IllegalStateException("This book doesn't exists");
-         else if(isTitlePresent.isEmpty() ) throw new IllegalStateException(booked.getTitle() + "This book doesn't exists");
-       // else if(isAuthorPresent.isEmpty()) throw new IllegalStateException("This author doesn't written this book");
-        else if(hasUserAlreadyBorrowBook.isPresent() && isEnable){
+         else if(isTitlePresent.isEmpty() ) throw new IllegalStateException("This book doesn't exists");
+         else if(isAuthorPresent.isEmpty()) throw new IllegalStateException("This author doesn't written this book");
+         else if(hasUserAlreadyBorrowBook.isPresent() && isEnable){
 
             Long i = bookedBooksRepository.getI() + 1;
 
-            bookedBooksRepository.setBookedBooks(i, booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
+            bookedBooksRepository.setBookedBooks(i,bookedRepository.getSurname(booked.getSocialSecurityNumber()), booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
 
             bookedRepository.borrowBook(booked.getTitle(), booked.getAuthor());
 
         }else if (hasUserAlreadyBorrowBook.isEmpty() && isEnable){
             Long i = bookedBooksRepository.getI() + 1;
 
-            bookedBooksRepository.setBookedBooks(i, booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
+            bookedBooksRepository.setBookedBooks(i,bookedRepository.getSurname(booked.getSocialSecurityNumber()), booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
 
 
             booked.setSurname(bookedRepository.getSurname(booked.getSocialSecurityNumber()));
@@ -85,10 +83,8 @@ public class BookedService {
         if(isUserPresent.isPresent() && isAuthorPresent.isPresent() && isTitlePresent.isPresent()){
             bookedRepository.returnBook(booked.getTitle(),booked.getAuthor());
 
-
             // query nie zwraca JEDNEJ wartości nwm czemu
-            Long id = bookedBooksRepository.selectMinId(booked.getTitle(),booked.getAuthor(), booked.getSocialSecurityNumber());
-
+            bookedBooksRepository.deleteBook(bookedBooksRepository.selectMinId(booked.getTitle(),booked.getAuthor(), booked.getSocialSecurityNumber()));
 
         }
     }

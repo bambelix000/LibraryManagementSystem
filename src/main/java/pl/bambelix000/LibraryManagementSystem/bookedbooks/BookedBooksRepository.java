@@ -19,28 +19,20 @@ public interface BookedBooksRepository extends JpaRepository<BookedBooks, Long> 
 
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO public.booked_books (id, author, title, social_security_number) VALUES (:id, :author, :title, :ssn);", nativeQuery = true)
-    void setBookedBooks(@Param("id") Long id, @Param("author") String author, @Param("title") String title, @Param("ssn") String socialSecurityNumber);
+    @Query(value = "INSERT INTO public.booked_books (id, surname,  author, title, social_security_number) VALUES (:id,:surname, :author, :title, :ssn);", nativeQuery = true)
+    void setBookedBooks(@Param("id") Long id,@Param("surname") String surname,@Param("author") String author, @Param("title") String title, @Param("ssn") String socialSecurityNumber);
 
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM public.booked_books WHERE id = :id",nativeQuery = true)
     void deleteBook(@Param("id") Long id);
 
-    @Query(value = "SELECT MIN(id) FROM public.booked_books WHERE title = :title AND author = :author AND social_security_number = :ssn", nativeQuery = true)
+    @Query(value = "SELECT MIN(id) FROM public.booked_books WHERE title IN :title AND author IN :author AND social_security_number IN :ssn", nativeQuery = true)
     Long selectMinId(@Param("title")String title, @Param("author") String author, @Param("ssn") String socialSecurityNumber);
+
 
     @Query(value = "SELECT MAX(id) FROM public.booked_books", nativeQuery = true)
     Long getI();
-
-    @Query(value = "SELECT social_security_number FROM public.booked_books WHERE id = :id", nativeQuery = true)
-    String getSsn(@Param("id")Long id);
-
-    @Query(value = "SELECT author FROM public.booked_books WHERE social_security_number = :ssn", nativeQuery = true)
-    String getAuthor(@Param("ssn") String socialSecurityNumber);
-
-    @Query(value = "SELECT title FROM public.booked_books WHERE social_security_number = :ssn", nativeQuery = true)
-    String getTitle(@Param("ssn") String socialSecurityNumber);
 
 
 
