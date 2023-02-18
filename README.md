@@ -7,17 +7,14 @@ I've learned:
   - Working with databases,
   - Functions of github,
   - Interfaces usages,
-  - many spring functions.
-  
-  
+  - many spring functions,
+  - building simple frontend to spring.
   
 FUTURES: 
   - fix bugs
   - upgrade programm
   - symplify code
-  - frontend which will show whole logic of this program
-  
-  
+   
 If you have some advices for me, I'm open for them.
 <3
 
