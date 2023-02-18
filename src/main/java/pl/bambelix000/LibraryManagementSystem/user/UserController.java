@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping
-    public void addUser(@RequestBody User user){
+    public void addUser(@ModelAttribute User user){
         userService.addUser(user);
 
     }

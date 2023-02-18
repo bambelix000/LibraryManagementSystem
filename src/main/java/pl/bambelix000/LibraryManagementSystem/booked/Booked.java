@@ -24,16 +24,20 @@ public class Booked {
     @Setter
     private Long id;
 
+    @Getter
+    @Setter
     private String surname;
 
-    @Setter
     @Getter
+    @Setter
     private String socialSecurityNumber;
 
     @Setter
     @Getter
     private String title;
 
+    @Getter
+    @Setter
     private String author;
 
     public Booked(String socialSecurityNumber,
@@ -42,21 +46,5 @@ public class Booked {
         this.socialSecurityNumber = socialSecurityNumber;
         this.title = title;
         this.author = author;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 }

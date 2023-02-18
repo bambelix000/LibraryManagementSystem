@@ -40,18 +40,14 @@ public class BookedService {
         Optional<Book> isTitlePresent = bookRepository.findByTitle(booked.getTitle());
         Optional<Booked> hasUserAlreadyBorrowBook = bookedRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
 
-        boolean isEnable;
-        if(bookedRepository.amount(booked.getTitle(), booked.getAuthor()) - bookedRepository.booked(booked.getTitle(), booked.getAuthor()) > 0){
-            isEnable = true;
-        }else{
-            isEnable = false;
-        }
+        boolean isEnable = bookedRepository.amount(booked.getTitle(), booked.getAuthor()) - bookedRepository.booked(booked.getTitle(), booked.getAuthor()) > 0;
 
        // PROBLEM Z QUERY
+
        // Optional<Book> isAuthorPresent = bookRepository.findByAuthor(booked.getAuthor());
 
-        if(isUserPresent.isEmpty()) throw new IllegalStateException("This user doesn't exists");
-        else if(isTitlePresent.isEmpty() ) throw new IllegalStateException("This book doesn't exists");
+         if(isUserPresent.isEmpty()) throw new IllegalStateException("This book doesn't exists");
+         else if(isTitlePresent.isEmpty() ) throw new IllegalStateException(booked.getTitle() + "This book doesn't exists");
        // else if(isAuthorPresent.isEmpty()) throw new IllegalStateException("This author doesn't written this book");
         else if(hasUserAlreadyBorrowBook.isPresent() && isEnable){
 
@@ -79,6 +75,8 @@ public class BookedService {
         }else throw new IllegalStateException("This book isn't enable already");
     }
 
+
+
     public void returnBook(Booked booked){
         Optional<BookedBooks> isUserPresent = bookedBooksRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
         Optional<BookedBooks> isAuthorPresent = bookedBooksRepository.findByAuthor(booked.getAuthor());
@@ -91,7 +89,7 @@ public class BookedService {
             // query nie zwraca JEDNEJ wartości nwm czemu
             Long id = bookedBooksRepository.selectMinId(booked.getTitle(),booked.getAuthor(), booked.getSocialSecurityNumber());
 
-            bookedBooksRepository.deleteBook(id);
+
         }
     }
 

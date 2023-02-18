@@ -27,7 +27,6 @@ public interface BookedBooksRepository extends JpaRepository<BookedBooks, Long> 
     @Query(value = "DELETE FROM public.booked_books WHERE id = :id",nativeQuery = true)
     void deleteBook(@Param("id") Long id);
 
-    @Transactional
     @Query(value = "SELECT MIN(id) FROM public.booked_books WHERE title = :title AND author = :author AND social_security_number = :ssn", nativeQuery = true)
     Long selectMinId(@Param("title")String title, @Param("author") String author, @Param("ssn") String socialSecurityNumber);
 
