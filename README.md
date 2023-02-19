@@ -12,9 +12,12 @@ I've learned:
   
 FUTURES: 
   - fix bugs
-  - upgrade programm
-  - symplify code
-   
+  
+TO OPEN ON YOUR COMPUTER YOU NEED:
+  - abstract database
+  - InteliJ with Spring
+  
+  
 If you have some advices for me, I'm open for them.
 <3
 
