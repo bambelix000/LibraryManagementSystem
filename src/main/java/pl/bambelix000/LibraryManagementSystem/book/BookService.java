@@ -10,9 +10,7 @@ import java.util.Optional;
 @Service
 public class BookService {
 
-
     private final BookRepository bookRepository;
-
 
     @Autowired
     public BookService(BookRepository bookRepository) {
@@ -24,18 +22,13 @@ public class BookService {
    }
 
    public void addNewBook(Book book){
-       Optional<Book>titleOptional = bookRepository.findByTitle(book.getTitle());
-      // Optional<Book>authorOptional = bookRepository.findByAuthor(book.getAuthor());
+       Optional<Book>authorOptional = bookRepository.findByAuthorAndTitle(book.getAuthor(), book.getTitle());
        book.setBooked(0);
 
-       if(titleOptional.isPresent()){
-
-           bookRepository.updateAmount(book.getAmount(), book.getTitle());
-
-
+       if(authorOptional.isPresent()){
+           bookRepository.updateAmount(book.getAmount(), book.getTitle(), book.getAuthor());
        }else{
            bookRepository.save(book);
        }
    }
-
 }

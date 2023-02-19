@@ -37,42 +37,42 @@ public class BookedService {
 
     public void bookABook(Booked booked){
         Optional<User> isUserPresent = userRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
-        Optional<Book> isTitlePresent = bookRepository.findByTitle(booked.getTitle());
         Optional<Booked> hasUserAlreadyBorrowBook = bookedRepository.findBySocialSecurityNumber(booked.getSocialSecurityNumber());
-        Optional<Book> isAuthorPresent = bookRepository.findByAuthor(booked.getAuthor());
+        Optional<Book> authorAndTitle = bookRepository.findByAuthorAndTitle(booked.getAuthor(), booked.getTitle());
 
         boolean isEnable = bookedRepository.amount(booked.getTitle(), booked.getAuthor()) - bookedRepository.booked(booked.getTitle(), booked.getAuthor()) > 0;
 
-
-         if(isUserPresent.isEmpty()) throw new IllegalStateException("This book doesn't exists");
-         else if(isTitlePresent.isEmpty() ) throw new IllegalStateException("This book doesn't exists");
-         else if(isAuthorPresent.isEmpty()) throw new IllegalStateException("This author doesn't written this book");
-         else if(hasUserAlreadyBorrowBook.isPresent() && isEnable){
-
+        if(authorAndTitle.isPresent() &&  isEnable && isUserPresent.isPresent() && hasUserAlreadyBorrowBook.isEmpty()){
             Long i = bookedBooksRepository.getI() + 1;
-
-            bookedBooksRepository.setBookedBooks(i,bookedRepository.getSurname(booked.getSocialSecurityNumber()), booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
 
             bookedRepository.borrowBook(booked.getTitle(), booked.getAuthor());
 
-        }else if (hasUserAlreadyBorrowBook.isEmpty() && isEnable){
-            Long i = bookedBooksRepository.getI() + 1;
-
             bookedBooksRepository.setBookedBooks(i,bookedRepository.getSurname(booked.getSocialSecurityNumber()), booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
-
 
             booked.setSurname(bookedRepository.getSurname(booked.getSocialSecurityNumber()));
             booked.setSocialSecurityNumber(booked.getSocialSecurityNumber());
             booked.setAuthor("booked_books table");
             booked.setTitle("booked_books table");
 
-            bookedRepository.borrowBook(booked.getTitle(), booked.getAuthor());
-
             bookedRepository.save(booked);
 
-        }else throw new IllegalStateException("This book isn't enable already");
-    }
+        }else if(authorAndTitle.isPresent() &&  isEnable && isUserPresent.isPresent() && hasUserAlreadyBorrowBook.isPresent()){
+            Long i;
+            if (bookedBooksRepository.getI() == null){
+                i = 1L;
+            }else{
+                i = bookedBooksRepository.getI() + 1;
+            }
 
+            bookedRepository.borrowBook(booked.getTitle(), booked.getAuthor());
+
+            bookedBooksRepository.setBookedBooks(i,bookedRepository.getSurname(booked.getSocialSecurityNumber()), booked.getAuthor(), booked.getTitle(), booked.getSocialSecurityNumber());
+
+        }
+        else if(authorAndTitle.isPresent() && isUserPresent.isEmpty())throw new IllegalStateException("This person doesn't exists");
+        else if(authorAndTitle.isEmpty() && isUserPresent. isPresent()) throw new IllegalStateException("This book doesn't exists");
+        else throw new IllegalStateException("This book isn't enable already");
+    }
 
 
     public void returnBook(Booked booked){

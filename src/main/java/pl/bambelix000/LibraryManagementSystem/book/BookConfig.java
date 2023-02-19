@@ -18,7 +18,7 @@ public class BookConfig {
                     "Mirek",
                     "Test",
                     5,
-                    0
+                    1
             );
             Book test1 = new Book(
                     "Mietek",
