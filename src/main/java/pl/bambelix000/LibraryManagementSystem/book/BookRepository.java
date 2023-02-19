@@ -14,11 +14,11 @@ import java.util.Optional;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     Optional<Book> findByAuthorAndTitle(String author, String title);
-    Optional<Book> findByTitle(String title);
-    Optional<Book> findByAuthor(String author);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE public.book SET amount = amount + :amount WHERE title = :title and author = :author", nativeQuery = true)
-    void updateAmount(@Param("amount") Integer amount, @Param("title") String title, @Param("author") String author);
+    void updateAmount(@Param("amount") Integer amount,
+                      @Param("title") String title,
+                      @Param("author") String author);
 }

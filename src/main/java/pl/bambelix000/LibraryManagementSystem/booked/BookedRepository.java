@@ -15,26 +15,26 @@ public interface BookedRepository extends JpaRepository<Booked, Long> {
 
     Optional<Booked> findBySocialSecurityNumber(String ssn);
 
-
     @Query(value = "SELECT surname FROM public.user WHERE social_security_number = :ssn", nativeQuery = true)
     String getSurname(@Param("ssn") String ssn);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE public.book SET booked = booked + 1 WHERE title = :title and author = :author", nativeQuery = true)
-    void borrowBook(@Param("title") String title, @Param("author") String author);
+    void borrowBook(@Param("title") String title,
+                    @Param("author") String author);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE public.book SET booked = booked - 1 WHERE title = :title and author = :author", nativeQuery = true)
-    void returnBook(@Param("title") String title, @Param("author") String author);
+    void returnBook(@Param("title") String title,
+                    @Param("author") String author);
 
     @Query(value = "SELECT amount FROM public.book WHERE title = :title and author = :author", nativeQuery = true)
-    int amount(@Param("title") String title, @Param("author") String author);
+    int amount(@Param("title") String title,
+               @Param("author") String author);
 
     @Query(value = "SELECT booked FROM public.book WHERE title = :title and author = :author", nativeQuery = true)
-    int booked(@Param("title") String title, @Param("author") String author);
-
-
-
+    int booked(@Param("title") String title,
+               @Param("author") String author);
 }

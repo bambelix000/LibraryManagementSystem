@@ -83,6 +83,7 @@ public class BookedService {
         if(isUserPresent.isPresent() && isAuthorPresent.isPresent() && isTitlePresent.isPresent()){
             bookedRepository.returnBook(booked.getTitle(),booked.getAuthor());
 
+            System.out.println(List.of(bookedBooksRepository.selectMinId(booked.getTitle(),booked.getAuthor(), booked.getSocialSecurityNumber())));
             // query nie zwraca JEDNEJ wartości nwm czemu
             bookedBooksRepository.deleteBook(bookedBooksRepository.selectMinId(booked.getTitle(),booked.getAuthor(), booked.getSocialSecurityNumber()));
 
