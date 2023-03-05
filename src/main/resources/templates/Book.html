@@ -4,10 +4,12 @@
     <meta charset="windows-1250">
     <title>Add a book</title>
     <link rel="stylesheet" href="style.css">
+
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="square">
-        <form action="http://localhost:8080/api/book" method="post">
+        <form action="http://localhost:8080/api/book" target="_self" method="post">
 
             <input type="text" name ="author" placeholder="Author"><br><br>
 
@@ -15,7 +17,7 @@
 
             <input type="number" name ="amount" placeholder="Amount"><br><br>
 
-            <button type ="submit">Submit</button>
+            <button type ="submit" onclick="setTimeout('close()', 1000);">Submit</button>
         </form>
 
     </div>
