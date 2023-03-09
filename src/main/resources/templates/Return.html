@@ -11,13 +11,13 @@
     <div class="square">
         <form action="http://localhost:8080/api/booked/delete" target="_self" method="post">
 
-            <input name="socialSecurityNumber" type="text" placeholder="Social Security Number" minlength="11" maxlength="11"><br><br>
+            <input name="socialSecurityNumber" type="text" placeholder="Social Security Number" minlength="11" maxlength="11" required>
 
-            <input name="title" type="text" placeholder= "Title"><br><br>
+            <input name="title" type="text" placeholder= "Title" required>
 
-            <input name="author" type="text" placeholder= "Author"><br><br>
+            <input name="author" type="text" placeholder= "Author" required>
 
-            <button type="submit" onclick="setTimeout('close()', 1000);">Submit</button>
+            <button type="submit" onclick="setTimeout('close()', 1);">Submit</button>
         </form>
 
     </div>
