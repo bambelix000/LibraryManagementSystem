@@ -10,8 +10,6 @@ I've learned:
   - many spring functions,
   - building simple frontend to spring.
   
-FUTURES: 
-  - fix bugs
   
 TO OPEN ON YOUR COMPUTER YOU NEED:
   - abstract database
